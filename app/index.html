@@ -2,16 +2,116 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="icon" type="image/svg+xml" href=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title></title>
-    <script type="module" crossorigin src="assets/index-CywQ_DOR.js"></script>
-    <link rel="stylesheet" crossorigin href="assets/index-BQCCELiX.css">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --preloader-bg: #f0e4e4;
+      }
+
+      :root[theme="dark"] {
+        --preloader-bg: #35363C;
+      }
+
+      #preloader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        width: 100vw;
+        height: 100vh;
+        z-index: 99999;
+        position: fixed;
+        transition: .5s;
+        background-color: var(--preloader-bg);
+
+        .preloader-animation {
+          animation-duration: 1s;
+          animation-name: preloader-anim;
+          animation-iteration-count: infinite;
+          svg {
+            height: 100px;  
+          }
+        }
+
+        .preloader-shadow {
+          animation-duration: 1s;
+          animation-name: preloader-shadow-anim;
+          animation-iteration-count: infinite;
+          svg {
+            height: 14px;
+            transform: perspective(100px) translateZ(0px);
+          }
+        }
+      }
+
+      #preloader.invisible {
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      @keyframes preloader-anim {
+        0% {
+          transform: translateY(0px);
+        } 50% {
+          transform: translateY(-10px);
+        } 100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes preloader-shadow-anim {
+        0% {
+          opacity: .75;
+          transform: perspective(100px) translateZ(0px);
+        } 50% {
+          opacity: .5;
+          transform: perspective(100px) translateZ(-50px);
+        } 100% {
+          opacity: .75;
+          transform: perspective(100px) translateZ(0px);
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-UrgW_gmJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bqxv1xrP.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="preloader">
+      <div class="preloader-animation">
+        <svg viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.6387 29.25C15.6445 25.4883 22.5 16.3711 22.5 11.25C22.5 5.03906 17.4609 0 11.25 0C5.03906 0 0 5.03906 0 11.25C0 16.3711 6.85547 25.4883 9.86133 29.25C10.582 30.1465 11.918 30.1465 12.6387 29.25ZM11.25 7.5C12.2446 7.5 13.1984 7.89509 13.9017 8.59835C14.6049 9.30161 15 10.2554 15 11.25C15 12.2446 14.6049 13.1984 13.9017 13.9017C13.1984 14.6049 12.2446 15 11.25 15C10.2554 15 9.30161 14.6049 8.59835 13.9017C7.89509 13.1984 7.5 12.2446 7.5 11.25C7.5 10.2554 7.89509 9.30161 8.59835 8.59835C9.30161 7.89509 10.2554 7.5 11.25 7.5Z" fill="#EB775E"/>
+        </svg>
+      </div>
 
+      <div class="preloader-shadow">
+        <svg viewBox="0 0 8 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse opacity="0.3" cx="4" cy="1.5" rx="4" ry="1.5" fill="#000000"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    <script>
+      if (localStorage.getItem("theme")) {
+        document.documentElement.setAttribute("theme", 
+          localStorage.getItem("theme") === "dark" ? "dark" : "light");
+      } else localStorage.setItem("theme", "light");
+
+      window.onload = function () {
+        document.getElementById("preloader").classList.add("invisible");
+      };
+    </script>
   </body>
 </html>
